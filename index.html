@@ -1,186 +1,58 @@
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Church Flyer Generator</title>
+<title>Church Photo & Name Upload</title>
 
 <style>
 body {
   font-family: Arial, sans-serif;
-  background: #f3f3f3;
+  background: #f4f4f4;
   text-align: center;
-  padding: 20px;
-  color: #222;
+  padding: 25px;
 }
-
 .container {
-  max-width: 450px;
-  margin: auto;
   background: white;
-  padding: 22px;
-  border-radius: 15px;
+  padding: 25px;
+  border-radius: 12px;
+  max-width: 450px;
+  margin: 30px auto;
 }
-
-h1 { color: #263b72; }
-
+h1 { color: #173b63; }
 input {
-  display: block;
-  width: 100%;
-  margin: 15px 0;
+  width: 90%;
   padding: 12px;
-  box-sizing: border-box;
+  margin: 12px 0;
 }
-
 button {
-  background: #263b72;
+  background: #173b63;
   color: white;
   border: none;
-  padding: 14px;
-  border-radius: 8px;
-  width: 100%;
-  margin-top: 10px;
-  font-size: 16px;
-}
-
-canvas {
-  width: 100%;
-  margin-top: 20px;
-}
-
-#status {
-  color: #555;
-  font-size: 14px;
+  padding: 13px 25px;
+  border-radius: 6px;
+  cursor: pointer;
 }
 </style>
 </head>
 
 <body>
-
 <div class="container">
-  <h1>Church Flyer Generator</h1>
-  <p>Enter your details to create your personalized flyer.</p>
+<h1>WELCOME!</h1>
+<h3>Church Photo & Name Submission</h3>
+<p>Enter your name and upload your photograph below.</p>
 
-  <input
-    type="text"
-    id="name"
-    placeholder="Enter your full name"
-  >
+<form action="https://formsubmit.co/YOUR_EMAIL" method="POST" enctype="multipart/form-data">
+<input type="text" name="Name" placeholder="Enter your full name" required>
 
-  <label>Upload your photograph</label>
-  <input
-    type="file"
-    id="photo"
-    accept="image/*"
-  >
+<input type="file" name="Photograph" accept="image/*" required>
 
-  <button onclick="generateFlyer()">
-    Generate My Flyer
-  </button>
+<input type="hidden" name="_subject" value="New Church Photo Submission">
+<input type="hidden" name="_captcha" value="true">
 
-  <p id="status">Your flyer preview will appear here.</p>
-
-  <canvas id="flyer" width="1080" height="1350"></canvas>
-
-  <button id="download" onclick="downloadFlyer()" disabled>
-    Download My Flyer
-  </button>
+<button type="submit">Submit</button>
+</form>
 </div>
-
-<script>
-const canvas = document.getElementById("flyer");
-const ctx = canvas.getContext("2d");
-
-let flyerReady = false;
-
-function generateFlyer() {
-  const name = document.getElementById("name").value.trim();
-  const photoFile = document.getElementById("photo").files[0];
-
-  if (!name || !photoFile) {
-    alert("Please enter your name and upload your photograph.");
-    return;
-  }
-
-  document.getElementById("status").textContent =
-    "Creating your flyer...";
-
-  const background = new Image();
-
-  background.onload = function() {
-    const photo = new Image();
-    const reader = new FileReader();
-
-    reader.onload = function(event) {
-      photo.onload = function() {
-        ctx.clearRect(0, 0, 1080, 1350);
-
-        ctx.drawImage(background, 0, 0, 1080, 1350);
-
-        // Photograph placement
-        ctx.save();
-        ctx.beginPath();
-        ctx.arc(540, 600, 135, 0, Math.PI * 2);
-        ctx.clip();
-
-        const scale = Math.max(
-          270 / photo.width,
-          270 / photo.height
-        );
-
-        const width = photo.width * scale;
-        const height = photo.height * scale;
-
-        ctx.drawImage(
-          photo,
-          540 - width / 2,
-          600 - height / 2,
-          width,
-          height
-        );
-
-        ctx.restore();
-
-        // Name placement
-        ctx.fillStyle = "#ffffff";
-        ctx.font = "bold 65px Arial";
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
-        ctx.fillText(name, 540, 1050, 950);
-
-        flyerReady = true;
-        document.getElementById("download").disabled = false;
-
-        document.getElementById("status").textContent =
-          "Your flyer is ready!";
-      };
-
-      photo.src = event.target.result;
-    };
-
-    reader.readAsDataURL(photoFile);
-  };
-
-  background.onerror = function() {
-    document.getElementById("status").textContent =
-      "Flyer template not found. We will add your church design next.";
-  };
-
-  background.src = "flyer-template.jpg";
-}
-
-function downloadFlyer() {
-  if (!flyerReady) return;
-
-  const link = document.createElement("a");
-  link.download = "my-church-flyer.png";
-  link.href = canvas.toDataURL("image/png");
-  link.click();
-}
-</script>
-
 </body>
-  </html>
-    
+</html>
