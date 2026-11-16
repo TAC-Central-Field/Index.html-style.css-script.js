@@ -4,28 +4,44 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Church Personalised Flyer</title>
+  <title>Personalized Church Flyer</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
   <div class="container">
     <h1>Welcome!</h1>
-    <p>Create your personalised church flyer.</p>
+    <p>Create your personalized church flyer.</p>
 
-    <div class="form">
-      <label>Enter Your Name</label>
-      <input type="text" id="name" placeholder="Your full name">
+    <form id="flyerForm">
+      <label for="name">Enter Your Full Name</label>
+      <input
+        type="text"
+        id="name"
+        placeholder="Your full name"
+        required
+      >
 
-      <label>Upload Your Photograph</label>
-      <input type="file" id="photo" accept="image/*">
+      <label for="photo">Upload Your Photograph</label>
+      <input
+        type="file"
+        id="photo"
+        accept="image/*"
+        required
+      >
 
-      <button onclick="generateFlyer()">Generate My Flyer</button>
+      <button type="submit">Create My Flyer</button>
+    </form>
+
+    <div id="preview" class="preview" hidden>
+      <h2>Your Personalized Flyer</h2>
+      <img id="previewPhoto" alt="Your uploaded photograph">
+      <h3 id="previewName"></h3>
+      <button type="button" id="downloadBtn">Download Flyer</button>
     </div>
-
-    <div id="result"></div>
   </div>
 
   <script src="script.js"></script>
 </body>
-</html>
+        </html>
+                                               
