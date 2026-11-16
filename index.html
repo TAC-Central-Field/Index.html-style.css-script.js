@@ -2,57 +2,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Church Photo & Name Upload</title>
-
-<style>
-body {
-  font-family: Arial, sans-serif;
-  background: #f4f4f4;
-  text-align: center;
-  padding: 25px;
-}
-.container {
-  background: white;
-  padding: 25px;
-  border-radius: 12px;
-  max-width: 450px;
-  margin: 30px auto;
-}
-h1 { color: #173b63; }
-input {
-  width: 90%;
-  padding: 12px;
-  margin: 12px 0;
-}
-button {
-  background: #173b63;
-  color: white;
-  border: none;
-  padding: 13px 25px;
-  border-radius: 6px;
-  cursor: pointer;
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Church Personalised Flyer</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-<div class="container">
-<h1>WELCOME!</h1>
-<h3>Church Photo & Name Submission</h3>
-<p>Enter your name and upload your photograph below.</p>
 
-<form action="https://formsubmit.co/YOUR_EMAIL" method="POST" enctype="multipart/form-data">
-<input type="text" name="Name" placeholder="Enter your full name" required>
+  <div class="container">
+    <h1>Welcome!</h1>
+    <p>Create your personalised church flyer.</p>
 
-<input type="file" name="Photograph" accept="image/*" required>
+    <div class="form">
+      <label>Enter Your Name</label>
+      <input type="text" id="name" placeholder="Your full name">
 
-<input type="hidden" name="_subject" value="New Church Photo Submission">
-<input type="hidden" name="_captcha" value="true">
+      <label>Upload Your Photograph</label>
+      <input type="file" id="photo" accept="image/*">
 
-<button type="submit">Submit</button>
-</form>
-</div>
+      <button onclick="generateFlyer()">Generate My Flyer</button>
+    </div>
+
+    <div id="result"></div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
