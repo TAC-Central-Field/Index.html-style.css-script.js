@@ -4,44 +4,48 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Personalized Church Flyer</title>
+  <title>Church Flyer Generator</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <div class="container">
+  <header>
     <h1>Welcome!</h1>
-    <p>Create your personalized church flyer.</p>
+    <p>Create your personalized church flyer</p>
+  </header>
+
+  <main class="container">
+    <h2>Personalize Your Flyer</h2>
 
     <form id="flyerForm">
-      <label for="name">Enter Your Full Name</label>
-      <input
-        type="text"
-        id="name"
-        placeholder="Your full name"
-        required
-      >
+      <label for="fullName">Your Full Name</label>
+      <input type="text" id="fullName"
+        placeholder="Enter your full name" required>
 
       <label for="photo">Upload Your Photograph</label>
-      <input
-        type="file"
-        id="photo"
-        accept="image/*"
-        required
-      >
+      <input type="file" id="photo"
+        accept="image/*" required>
 
-      <button type="submit">Create My Flyer</button>
+      <button type="submit">Generate My Flyer</button>
     </form>
 
-    <div id="preview" class="preview" hidden>
+    <section id="result" hidden>
       <h2>Your Personalized Flyer</h2>
-      <img id="previewPhoto" alt="Your uploaded photograph">
-      <h3 id="previewName"></h3>
-      <button type="button" id="downloadBtn">Download Flyer</button>
-    </div>
-  </div>
+      <div id="flyerPreview">
+        <img id="previewPhoto" alt="Your uploaded photograph">
+        <h3 id="previewName"></h3>
+      </div>
+      <button id="downloadBtn" type="button">
+        Download Flyer
+      </button>
+    </section>
+  </main>
+
+  <footer>
+    <p>Powered by Xtopher</p>
+  </footer>
 
   <script src="script.js"></script>
 </body>
-        </html>
-                                               
+  </html>
+  
