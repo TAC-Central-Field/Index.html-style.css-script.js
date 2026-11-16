@@ -4,7 +4,7 @@ const flyerForm = document.getElementById("flyerForm");
 flyerForm.addEventListener("submit", function(event) {
   event.preventDefault();
 
-  const name = document.getElementById("name").value.trim();
+  const name = document.getElementById("fullName").value.trim();
   const photoInput = document.getElementById("photo");
 
   if (!name || !photoInput.files.length) {
@@ -24,13 +24,12 @@ flyerForm.addEventListener("submit", function(event) {
   reader.onload = function(e) {
     document.getElementById("previewName").textContent = name;
     document.getElementById("previewPhoto").src = e.target.result;
-    document.getElementById("preview").hidden = false;
+    document.getElementById("result").hidden = false;
   };
 
   reader.readAsDataURL(photo);
 });
 
 document.getElementById("downloadBtn").addEventListener("click", function() {
-  alert("Your flyer preview is ready. The final downloadable flyer design will be added when the graphics designer sends the original artwork.");
+  alert("Your flyer preview is ready. Download functionality will be added with the final flyer artwork.");
 });
-                           
