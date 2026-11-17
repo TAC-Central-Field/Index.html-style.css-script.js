@@ -37,17 +37,29 @@ function drawFlyer() {
       uploadedPhoto.height
     );
 
-    ctx.drawImage(
-      uploadedPhoto,
-      (uploadedPhoto.width - size) / 2,
-      (uploadedPhoto.height - size) / 2,
-      size,
-      size,
-      546,
-      297,
-      336,
-      336
-    );
+    const diameter = 336;
+const scale = Math.max(
+  diameter / uploadedPhoto.width,
+  diameter / uploadedPhoto.height
+);
+
+const sourceWidth = diameter / scale;
+const sourceHeight = diameter / scale;
+
+const sourceX = (uploadedPhoto.width - sourceWidth) / 2;
+const sourceY = (uploadedPhoto.height - sourceHeight) / 2;
+
+ctx.drawImage(
+  uploadedPhoto,
+  sourceX,
+  sourceY,
+  sourceWidth,
+  sourceHeight,
+  546,
+  297,
+  diameter,
+  diameter
+);
 
     ctx.restore();
   }
