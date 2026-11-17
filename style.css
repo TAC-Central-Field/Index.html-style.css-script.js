@@ -57,4 +57,11 @@ button {
   border-radius: 8px;
   font-size: 16px;
   font-weight: bold;
+}#previewPhoto {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 50%;
+    display: block;
 }
