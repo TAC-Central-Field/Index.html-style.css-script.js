@@ -14,7 +14,7 @@ let flyerLoaded = false;
 canvas.width = 1050;
 canvas.height = 1050;
 
-// Load the original flyer
+// Load original flyer
 flyer.onload = function () {
   flyerLoaded = true;
   drawFlyer();
@@ -27,6 +27,7 @@ flyer.onerror = function () {
 flyer.src = "ATTENDING.png";
 
 
+// Draw personalized flyer
 function drawFlyer() {
   if (!flyerLoaded) return;
 
@@ -44,12 +45,11 @@ function drawFlyer() {
     const centerX = 714;
     const centerY = 465;
 
-    // Circular photograph frame
     ctx.beginPath();
     ctx.arc(centerX, centerY, diameter / 2, 0, Math.PI * 2);
     ctx.clip();
 
-    // Crop photograph proportionally
+    // Crop photograph without stretching
     const cropSize = Math.min(
       uploadedPhoto.width,
       uploadedPhoto.height
@@ -103,8 +103,7 @@ function drawFlyer() {
 nameInput.addEventListener("input", drawFlyer);
 
 
-
-// Upload photograph
+// Upload or change photograph
 photoInput.addEventListener("change", function () {
 
   const file = photoInput.files[0];
@@ -135,28 +134,7 @@ photoInput.addEventListener("change", function () {
   };
 
   reader.readAsDataURL(file);
-});
-                
 
-  const reader = new FileReader();
-
-  reader.onload = function (event) {
-
-    const newPhoto = new Image();
-
-    newPhoto.onload = function () {
-      uploadedPhoto = newPhoto;
-      drawFlyer();
-    };
-
-    newPhoto.onerror = function () {
-      alert("Unable to load this photograph. Please try another.");
-    };
-
-    newPhoto.src = event.target.result;
-  };
-
-  reader.readAsDataURL(file);
 });
 
 
@@ -181,4 +159,6 @@ downloadBtn.addEventListener("click", function () {
   link.href = canvas.toDataURL("image/png");
 
   link.click();
+
 });
+                
