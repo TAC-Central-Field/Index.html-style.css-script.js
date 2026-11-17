@@ -152,12 +152,28 @@ downloadBtn.addEventListener("click", function () {
 
   drawFlyer();
 
-  const link = document.createElement("a");
+  canvas.toBlob(function (blob) {
 
-  link.download = "My-Convention-Flyer.png";
-  link.href = canvas.toDataURL("image/png");
+    if (!blob) {
+      alert("Unable to generate flyer. Please try again.");
+      return;
+    }
 
-  link.click();
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+
+    link.href = url;
+    link.download = "My-Convention-Flyer.png";
+
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    setTimeout(function () {
+      URL.revokeObjectURL(url);
+    }, 1000);
+
+  }, "image/png");
 
 });
                 
