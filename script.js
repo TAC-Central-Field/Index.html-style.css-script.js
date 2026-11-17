@@ -7,7 +7,7 @@ const photoInput = document.getElementById("photo");
 const downloadBtn = document.getElementById("downloadBtn");
 
 const flyer = new Image();
-
+flyer.crossOrigin = "anonymous";
 let uploadedPhoto = null;
 let flyerLoaded = false;
 
