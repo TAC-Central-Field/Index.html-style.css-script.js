@@ -24,8 +24,7 @@ flyer.onerror = function () {
   alert("Unable to load the flyer. Please check the image filename.");
 };
 
-flyer.src = "ATTENDING.png";
-
+flyer.src = "https://raw.githubusercontent.com/Xtopro-11/Index.html-style.css-script.js/main/ATTENDING.png";
 
 // Draw personalized flyer
 function drawFlyer() {
