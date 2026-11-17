@@ -152,10 +152,10 @@ downloadBtn.addEventListener("click", function () {
 
   drawFlyer();
 
-  canvas.toBlob(function (blob) {
+  canvas.toBlob(function(blob) {
 
     if (!blob) {
-      alert("Unable to generate flyer. Please try again.");
+      alert("Unable to create flyer. Please try again.");
       return;
     }
 
@@ -169,11 +169,10 @@ downloadBtn.addEventListener("click", function () {
     link.click();
     document.body.removeChild(link);
 
-    setTimeout(function () {
+    setTimeout(function() {
       URL.revokeObjectURL(url);
     }, 1000);
 
   }, "image/png");
 
 });
-                
