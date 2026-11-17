@@ -7,72 +7,84 @@ const photoInput = document.getElementById("photo");
 const downloadBtn = document.getElementById("downloadBtn");
 
 const flyer = new Image();
+
 let uploadedPhoto = null;
 let flyerLoaded = false;
 
 canvas.width = 1050;
 canvas.height = 1050;
 
+// Load the original flyer
 flyer.onload = function () {
   flyerLoaded = true;
   drawFlyer();
 };
 
+flyer.onerror = function () {
+  alert("Unable to load the flyer. Please check the image filename.");
+};
+
 flyer.src = "ATTENDING.png";
+
 
 function drawFlyer() {
   if (!flyerLoaded) return;
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Draw original flyer
   ctx.drawImage(flyer, 0, 0, 1050, 1050);
 
+  // Insert uploaded photograph
   if (uploadedPhoto) {
+
     ctx.save();
+
+    const diameter = 336;
+    const centerX = 714;
+    const centerY = 465;
+
+    // Circular photograph frame
     ctx.beginPath();
-    ctx.arc(714, 465, 168, 0, Math.PI * 2);
+    ctx.arc(centerX, centerY, diameter / 2, 0, Math.PI * 2);
     ctx.clip();
 
-    const size = Math.min(
+    // Crop photograph proportionally
+    const cropSize = Math.min(
       uploadedPhoto.width,
       uploadedPhoto.height
     );
 
-    const diameter = 336;
-const scale = Math.max(
-  diameter / uploadedPhoto.width,
-  diameter / uploadedPhoto.height
-);
+    const sourceX = (uploadedPhoto.width - cropSize) / 2;
+    const sourceY = (uploadedPhoto.height - cropSize) / 2;
 
-const sourceWidth = diameter / scale;
-const sourceHeight = diameter / scale;
-
-const sourceX = (uploadedPhoto.width - sourceWidth) / 2;
-const sourceY = (uploadedPhoto.height - sourceHeight) / 2;
-
-ctx.drawImage(
-  uploadedPhoto,
-  sourceX,
-  sourceY,
-  sourceWidth,
-  sourceHeight,
-  546,
-  297,
-  diameter,
-  diameter
-);
+    ctx.drawImage(
+      uploadedPhoto,
+      sourceX,
+      sourceY,
+      cropSize,
+      cropSize,
+      centerX - diameter / 2,
+      centerY - diameter / 2,
+      diameter,
+      diameter
+    );
 
     ctx.restore();
   }
 
+  // Insert participant's name
   const name = nameInput.value.trim();
 
   if (name) {
+
     ctx.fillStyle = "white";
-    ctx.font = "bold 48px Arial";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
 
     let fontSize = 48;
+
+    ctx.font = `bold ${fontSize}px Arial`;
 
     while (
       ctx.measureText(name).width > 325 &&
@@ -86,26 +98,48 @@ ctx.drawImage(
   }
 }
 
+
+// Update name automatically
 nameInput.addEventListener("input", drawFlyer);
 
+
+// Upload photograph
 photoInput.addEventListener("change", function () {
+
   const file = photoInput.files[0];
 
   if (!file) return;
 
+  if (!file.type.startsWith("image/")) {
+    alert("Please select a valid photograph.");
+    return;
+  }
+
   const reader = new FileReader();
 
   reader.onload = function (event) {
-    uploadedPhoto = new Image();
 
-    uploadedPhoto.onload = drawFlyer;
-    uploadedPhoto.src = event.target.result;
+    const newPhoto = new Image();
+
+    newPhoto.onload = function () {
+      uploadedPhoto = newPhoto;
+      drawFlyer();
+    };
+
+    newPhoto.onerror = function () {
+      alert("Unable to load this photograph. Please try another.");
+    };
+
+    newPhoto.src = event.target.result;
   };
 
   reader.readAsDataURL(file);
 });
 
+
+// Download personalized flyer
 downloadBtn.addEventListener("click", function () {
+
   if (!nameInput.value.trim()) {
     alert("Please enter your name.");
     return;
@@ -119,8 +153,9 @@ downloadBtn.addEventListener("click", function () {
   drawFlyer();
 
   const link = document.createElement("a");
+
   link.download = "My-Convention-Flyer.png";
   link.href = canvas.toDataURL("image/png");
+
   link.click();
 });
-  
