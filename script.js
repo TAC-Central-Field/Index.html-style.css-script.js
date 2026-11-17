@@ -137,6 +137,7 @@ photoInput.addEventListener("change", function () {
 });
 
 
+
 // Download personalized flyer
 downloadBtn.addEventListener("click", function () {
 
@@ -150,29 +151,26 @@ downloadBtn.addEventListener("click", function () {
     return;
   }
 
+  if (!flyerLoaded) {
+    alert("Please wait for the flyer to finish loading.");
+    return;
+  }
+
   drawFlyer();
 
-  canvas.toBlob(function(blob) {
+  try {
+    const imageURL = canvas.toDataURL("image/png");
 
-    if (!blob) {
-      alert("Unable to create flyer. Please try again.");
-      return;
-    }
-
-    const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
-
-    link.href = url;
+    link.href = imageURL;
     link.download = "My-Convention-Flyer.png";
 
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
 
-    setTimeout(function() {
-      URL.revokeObjectURL(url);
-    }, 1000);
-
-  }, "image/png");
+  } catch (error) {
+    alert("Download failed: " + error.message);
+  }
 
 });
