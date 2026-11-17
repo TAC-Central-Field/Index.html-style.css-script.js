@@ -103,6 +103,7 @@ function drawFlyer() {
 nameInput.addEventListener("input", drawFlyer);
 
 
+
 // Upload photograph
 photoInput.addEventListener("change", function () {
 
@@ -114,6 +115,28 @@ photoInput.addEventListener("change", function () {
     alert("Please select a valid photograph.");
     return;
   }
+
+  const reader = new FileReader();
+
+  reader.onload = function (event) {
+
+    const newPhoto = new Image();
+
+    newPhoto.onload = function () {
+      uploadedPhoto = newPhoto;
+      drawFlyer();
+    };
+
+    newPhoto.onerror = function () {
+      alert("Unable to load this photograph. Please try another.");
+    };
+
+    newPhoto.src = event.target.result;
+  };
+
+  reader.readAsDataURL(file);
+});
+                
 
   const reader = new FileReader();
 
