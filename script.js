@@ -9,6 +9,13 @@ const downloadBtn = document.getElementById("downloadBtn");
 const flyer = new Image();
 flyer.crossOrigin = "anonymous";
 let uploadedPhoto = null;
+// Photo adjustment settings
+let photoZoom = 1;
+let photoShiftX = 0;
+let photoShiftY = 0;
+
+const MIN_ZOOM = 1;
+const MAX_ZOOM = 1.5;
 let flyerLoaded = false;
 
 canvas.width = 1050;
