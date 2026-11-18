@@ -30,9 +30,15 @@ flyer.onload = function () {
 };
 
 flyer.onerror = function () {
-  alert("Unable to load the flyer. Please check the image filename.");
+  console.log("Flyer failed to load:", flyer.src);
+  alert("Flyer failed to load. Check the browser console.");
 };
 
+flyer.onload = function () {
+  console.log("Flyer loaded successfully!");
+  flyerLoaded = true;
+  drawFlyer();
+};
 flyer.src = "ATTENDING.png";
 
 // Draw personalized flyer
