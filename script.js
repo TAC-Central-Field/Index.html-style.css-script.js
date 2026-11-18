@@ -54,30 +54,31 @@ const centerY = 460;
     ctx.arc(centerX, centerY, diameter / 2, 0, Math.PI * 2);
     ctx.clip();
 
-    // Crop photograph without stretching
-    const cropSize = Math.min(
-      uploadedPhoto.width,
-      uploadedPhoto.height
-    );
+    // Crop and adjust uploaded photograph
+const cropSize = Math.min(
+  uploadedPhoto.width,
+  uploadedPhoto.height
+);
 
-    const sourceX = (uploadedPhoto.width - cropSize) / 2;
-    const sourceY = (uploadedPhoto.height - cropSize) / 2;
+const sourceX = (uploadedPhoto.width - cropSize) / 2;
+const sourceY = (uploadedPhoto.height - cropSize) / 2;
 
-    ctx.drawImage(
-      uploadedPhoto,
-      sourceX,
-      sourceY,
-      cropSize,
-      cropSize,
-      centerX - diameter / 2,
-      centerY - diameter / 2,
-      diameter,
-      diameter
-    );
+const drawSize = diameter * photoZoom;
 
-    ctx.restore();
-  }
+const photoX = centerX - drawSize / 2 + photoShiftX;
+const photoY = centerY - drawSize / 2 + photoShiftY;
 
+ctx.drawImage(
+  uploadedPhoto,
+  sourceX,
+  sourceY,
+  cropSize,
+  cropSize,
+  photoX,
+  photoY,
+  drawSize,
+  drawSize
+);
   // Insert participant's name
   const name = nameInput.value.trim();
 
