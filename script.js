@@ -39,7 +39,7 @@ function drawFlyer() {
 
     ctx.save();
 
-    const diameter = 366;
+    const diameter = 375;
     const centerX = 714;
     const centerY = 465;
 
