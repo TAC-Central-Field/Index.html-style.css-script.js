@@ -38,11 +38,11 @@ function drawFlyer() {
   if (uploadedPhoto) {
 
     ctx.save();
-
-    const diameter = 375;
-    const centerX = 697;
-    const centerY = 465;
-
+    
+  const diameter = 350;
+  const centerX = 715;
+  const centerY = 465;
+    
     ctx.beginPath();
     ctx.arc(centerX, centerY, diameter / 2, 0, Math.PI * 2);
     ctx.clip();
