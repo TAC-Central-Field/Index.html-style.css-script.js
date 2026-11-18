@@ -40,8 +40,8 @@ function drawFlyer() {
     ctx.save();
     
   const diameter = 350;
-  const centerX = 715;
-  const centerY = 465;
+const centerX = 730;
+const centerY = 460;
     
     ctx.beginPath();
     ctx.arc(centerX, centerY, diameter / 2, 0, Math.PI * 2);
