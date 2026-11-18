@@ -33,7 +33,7 @@ flyer.onerror = function () {
   alert("Unable to load the flyer. Please check the image filename.");
 };
 
-flyer.src = "./ATTENDING.png";
+flyer.src = "ATTENDING.png";
 
 // Draw personalized flyer
 function drawFlyer() {
