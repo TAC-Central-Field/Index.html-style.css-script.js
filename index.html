@@ -18,6 +18,18 @@
 
     <label for="photo">Upload Your Photograph</label>
     <input type="file" id="photo" accept="image/*">
+    <div class="photo-controls">
+
+  <label for="zoom">Zoom Photograph</label>
+  <input type="range" id="zoom" min="100" max="150" value="100">
+
+  <label for="moveX">Move Left / Right</label>
+  <input type="range" id="moveX" min="-100" max="100" value="0">
+
+  <label for="moveY">Move Up / Down</label>
+  <input type="range" id="moveY" min="-100" max="100" value="0">
+
+  </div>
 
     <div class="preview">
       <canvas id="flyerCanvas"></canvas>
