@@ -25,21 +25,17 @@ canvas.height = 1050;
 
 // Load original flyer
 flyer.onload = function () {
+  console.log("Flyer loaded successfully!");
   flyerLoaded = true;
   drawFlyer();
 };
 
 flyer.onerror = function () {
   console.log("Flyer failed to load:", flyer.src);
-  alert("Flyer failed to load. Check the browser console.");
+  alert("Unable to load ATTENDING.png. Please check the image location.");
 };
 
-flyer.onload = function () {
-  console.log("Flyer loaded successfully!");
-  flyerLoaded = true;
-  drawFlyer();
-};
-flyer.src = "ATTENDING.png";
+flyer.src = "./ATTENDING.png";
 
 // Draw personalized flyer
 function drawFlyer() {
