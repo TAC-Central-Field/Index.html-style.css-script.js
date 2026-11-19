@@ -8,6 +8,9 @@ const nameInput = document.getElementById("name");
 const photoInput = document.getElementById("photo");
 const downloadBtn = document.getElementById("downloadBtn");
 
+const zoomInput = document.getElementById("zoom");
+const moveXInput = document.getElementById("moveX");
+const moveYInput = document.getElementById("moveY");
 const flyer = new Image();
 flyer.crossOrigin = "anonymous";
 
