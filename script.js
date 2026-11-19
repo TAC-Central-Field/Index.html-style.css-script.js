@@ -1,27 +1,15 @@
 
-const canvas = document.getElementById("flyerCanvas");const zoomInput = document.getElementById("zoom");
-const moveXInput = document.getElementById("moveX");
-const moveYInput = document.getElementById("moveY");
+const canvas = document.getElementById("flyerCanvas");
 const ctx = canvas.getContext("2d");
 
 const nameInput = document.getElementById("name");
 const photoInput = document.getElementById("photo");
 const downloadBtn = document.getElementById("downloadBtn");
 
-const zoomInput = document.getElementById("zoom");
-const moveXInput = document.getElementById("moveX");
-const moveYInput = document.getElementById("moveY");
 const flyer = new Image();
 flyer.crossOrigin = "anonymous";
 
 let uploadedPhoto = null;
-
-let photoZoom = 1;
-let photoShiftX = 0;
-let photoShiftY = 0;
-
-const MIN_ZOOM = 1;
-const MAX_ZOOM = 1.5;
 
 let flyerLoaded = false;
 
@@ -74,27 +62,17 @@ function drawFlyer() {
     const sourceX = (uploadedPhoto.width - cropSize) / 2;
     const sourceY = (uploadedPhoto.height - cropSize) / 2;
 
-    // Apply zoom
-    const safeZoom = Math.min(
-      MAX_ZOOM,
-      Math.max(MIN_ZOOM, photoZoom)
-    );
-
-    const drawSize = diameter * safeZoom;
-
-    const photoX = centerX - drawSize / 2 + photoShiftX;
-    const photoY = centerY - drawSize / 2 + photoShiftY;
-
+    // Draw photograph without zoom or movement adjustments
     ctx.drawImage(
       uploadedPhoto,
       sourceX,
       sourceY,
       cropSize,
       cropSize,
-      photoX,
-      photoY,
-      drawSize,
-      drawSize
+      centerX - diameter / 2,
+      centerY - diameter / 2,
+      diameter,
+      diameter
     );
 
     ctx.restore();
@@ -128,23 +106,6 @@ function drawFlyer() {
 // Update name automatically
 nameInput.addEventListener("input", drawFlyer);
 
-// Adjust photograph zoom
-zoomInput.addEventListener("input", function () {
-  photoZoom = Number(this.value) / 100;
-  drawFlyer();
-});
-
-// Move photograph left and right
-moveXInput.addEventListener("input", function () {
-  photoShiftX = Number(this.value);
-  drawFlyer();
-});
-
-// Move photograph up and down
-moveYInput.addEventListener("input", function () {
-  photoShiftY = Number(this.value);
-  drawFlyer();
-});
 // Upload or change photograph
 photoInput.addEventListener("change", function () {
 
@@ -164,19 +125,10 @@ photoInput.addEventListener("change", function () {
     const newPhoto = new Image();
 
     newPhoto.onload = function () {
-  uploadedPhoto = newPhoto;
+      uploadedPhoto = newPhoto;
+      drawFlyer();
+    };
 
-  // Reset adjustments for each new photo
-  photoZoom = 1;
-  photoShiftX = 0;
-  photoShiftY = 0;
-
-  zoomInput.value = 100;
-  moveXInput.value = 0;
-  moveYInput.value = 0;
-
-  drawFlyer();
-};
     newPhoto.onerror = function () {
       alert("Unable to load this photograph. Please try another.");
     };
@@ -223,4 +175,3 @@ downloadBtn.addEventListener("click", function () {
   }
 
 });
-  
