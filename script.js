@@ -124,21 +124,22 @@ function drawFlyer() {
 
 // Update name automatically
 nameInput.addEventListener("input", drawFlyer);
+
 // Adjust photograph zoom
 zoomInput.addEventListener("input", function () {
-  photoZoom = Number(zoomInput.value) / 100;
+  photoZoom = Number(this.value) / 100;
   drawFlyer();
 });
 
-// Move photograph horizontally
+// Move photograph left and right
 moveXInput.addEventListener("input", function () {
-  photoShiftX = Number(moveXInput.value);
+  photoShiftX = Number(this.value);
   drawFlyer();
 });
 
-// Move photograph vertically
+// Move photograph up and down
 moveYInput.addEventListener("input", function () {
-  photoShiftY = Number(moveYInput.value);
+  photoShiftY = Number(this.value);
   drawFlyer();
 });
 // Upload or change photograph
