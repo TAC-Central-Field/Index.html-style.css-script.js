@@ -45,7 +45,7 @@ function drawFlyer() {
     ctx.save();
 
     const diameter = 365;
-    const centerX = 716;
+    const centerX = 717;
     const centerY = 460;
 
     // Circular photo boundary
